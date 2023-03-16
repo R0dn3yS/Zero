@@ -6,7 +6,7 @@ export async function quoteHandler(_roomId: string, event: MessageEvent<MessageE
   if (event.sender === await client.getUserId()) return;
 
   const year = new Date().getFullYear().toString().substring(2);
-  const QUOTE_REGEX = new RegExp(`"(.+)" - <a href="https:\/\/matrix\.to\/#\/%40.*"> 2k${year}`);
+  const QUOTE_REGEX = new RegExp(`"(.+)" - <a href="https:\/\/matrix\.to\/#\/%40.*">.*</a> 2k${year}`);
 
   if (QUOTE_REGEX.test(event.textBody)) {
     const room = '!jNTkHGSAYrNPfoXxmL:iusearchbtw.nl';
