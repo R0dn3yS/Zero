@@ -1,6 +1,7 @@
 import { AutojoinRoomsMixin, ICryptoStorageProvider, LogLevel, LogService, MatrixClient, MessageEvent, RichConsoleLogger, RustSdkCryptoStorageProvider, SimpleFsStorageProvider } from 'matrix-bot-sdk';
 import * as path from 'path';
 import config from './config';
+import { quoteHandler } from './handlers/quote';
 
 LogService.setLogger(new RichConsoleLogger());
 LogService.setLevel(LogLevel.DEBUG);
@@ -43,6 +44,7 @@ client.on('room.message', async (roomId: string, ev: any) => {
   if (event.messageType !== 'm.text') return;
   if (event.content['m.new_content']) return;
 
+  if (event.textBody.startsWith('"')) return quoteHandler(roomId, event, client);
   if (!event.textBody.startsWith(client.prefix)) return;
 
   const args = event.textBody.slice(client.prefix.length).trim().split(/ +/g);
