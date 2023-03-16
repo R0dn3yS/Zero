@@ -9,7 +9,7 @@ export async function quoteHandler(_roomId: string, event: MessageEvent<MessageE
   const formatted_body = event.raw.content['formatted_body'];
 
   const year = new Date().getFullYear().toString().substring(2);
-  const QUOTE_REGEX = new RegExp(`&quot;(.+)&quot; - <a href="https:\/\/matrix\.to\/#\/%40.*">.*</a> 2k${year}`);
+  const QUOTE_REGEX = new RegExp(`(&quot;)|".+(&quot;)|" - <a href="https:\/\/matrix\.to\/#\/(%40)|@.+">.*</a> 2k${year}`);
 
   if (QUOTE_REGEX.test(formatted_body)) {
     const room = '!jNTkHGSAYrNPfoXxmL:iusearchbtw.nl';
