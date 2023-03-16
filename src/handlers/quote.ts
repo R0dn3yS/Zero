@@ -1,6 +1,6 @@
 import { MessageEvent, MessageEventContent } from 'matrix-bot-sdk';
 import { CommandMatrixClient } from '..';
-import { sendText } from '../util/util';
+import { mention, sendText } from '../util/util';
 
 export async function quoteHandler(_roomId: string, event: MessageEvent<MessageEventContent>, client: CommandMatrixClient) {
   if (event.sender === await client.getUserId()) return;
@@ -13,7 +13,7 @@ export async function quoteHandler(_roomId: string, event: MessageEvent<MessageE
 
   if (QUOTE_REGEX.test(formatted_body)) {
     const room = '!jNTkHGSAYrNPfoXxmL:iusearchbtw.nl';
-    const text = `${event.sender}: ${formatted_body}`
+    const text = `${mention(event.sender, event.sender.split(':')[0].split('@')[1])}: ${formatted_body}`
     return await sendText(room, client, text);
   }
 }

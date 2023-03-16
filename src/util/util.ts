@@ -131,3 +131,9 @@ export function filterTitle(title: string) {
 
   return filteredTitle;
 }
+
+export function mention(id: string, name: string) {
+  id = id.replaceAll('@', '%40');
+  id = id.replaceAll(':', '%3A');
+  const result = `<a href="https://matrix.to/#/${id}">${name}</a>`
+}
